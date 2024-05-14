@@ -1,0 +1,21 @@
+---
+
+- name: "Testing the Genie parsers"
+  hosts: pe_routers
+  connection: network_cli
+
+  tasks:
+    - name: "Task 1 -sending show command"
+      cisco.ios.ios_command: 
+        commands: show version
+      register: show_ver_output 
+
+    - name: "Task 2 - parsing the output"
+      set_fact:
+        parsed_data: >-
+          {{ show_ver_output.stdout[0] | clay584.genie.parse_genie(
+          command='show version', os='ios') }}
+
+    - name: "Print the output"
+      debug: 
+        msg:  "{{ parsed_data }}"

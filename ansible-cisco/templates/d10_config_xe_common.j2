@@ -1,0 +1,17 @@
+
+hostname {{ rtr.name }}
+no aaa new-model
+no ip domain lookup
+ip domain name hiTech.com
+login on-success log
+netconf-yang
+restconf
+cdp run
+ip http server authentication local
+ip http secure-server
+ip tftp source-interface GigabitEthernet3
+ip ssh time-out 90
+ip ssh authentication-retries 2
+ip ssh source-interface GigabitEthernet3
+ip scp server enable
+logging alarm informational

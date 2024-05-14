@@ -1,0 +1,18 @@
+hostname {{ rtr.name }}
+
+mpls label protocol ldp
+
+interface {{ rtr.lo.name }}
+ description {{ rtr.lo.description }}
+ ip address {{ rtr.lo.ip }} {{ rtr.lo.mask }}
+ ip ospf {{ all.ospf_id }} area 0
+
+{% for gi in rtr.gis %}
+ interface {{ gi.name }}
+  description {{ gi.description }}
+  ip ospf {{ all.ospf_id }} area 0
+  mpls ip
+{% endfor %}
+
+router ospf {{ all.ospf_id }}
+ router-id {{ rtr.lo.ip }}

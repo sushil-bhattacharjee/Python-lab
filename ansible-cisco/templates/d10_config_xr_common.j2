@@ -1,0 +1,13 @@
+hostname {{ rtr.name }}
+clock timezone EST America/New_York
+logging console debugging
+domain name hiTech.com
+domain lookup disable
+telnet vrf Mgmt-intf ipv4 server max-servers 15
+cdp
+ntp server {{ all.ntp }}
+tftp client source-interface MgmtEth0/RP0/CPU0/0
+netconf agent tty
+netconf-yang agent ssh
+ssh server v2
+ssh server netconf vrf Mgmt-intf

@@ -1,0 +1,6 @@
+---
+
+ansible_user: "sushil"
+ansible_password: "sushil"
+#ansible_network_os: "cisco.ios.ios"
+#ospf_configuration: "router ospf 1"

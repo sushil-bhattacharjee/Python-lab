@@ -1,0 +1,19 @@
+---
+
+- name: mpls ldp globally enable
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+
+  vars:
+   cli:
+    username: sushil
+    password: sushil
+
+  tasks:
+   - name: Global mpls ldp setting
+     cisco.ios.ios_config:
+      provider: "{{ cli }}"
+      lines:
+       - mpls ldp router-id loopback 0
+     register: print_output

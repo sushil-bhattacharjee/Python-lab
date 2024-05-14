@@ -1,0 +1,49 @@
+---
+R1:
+  router_id: "10.1.1.1"
+  interfaces:
+    - { interface: "GigabitEthernet0/0", desc: "R2", ip: "10.100.12.1", mask: "255.255.255.0", area: 0, passive: false, enabled: true }
+    - { interface: "GigabitEthernet0/1", desc: "R4", ip: "10.100.14.1", mask: "255.255.255.0", area: 0, passive: false, enabled: true }
+    - { interface: "GigabitEthernet0/2", desc: "R3", ip: "10.100.13.1", mask: "255.255.255.0", area: 0, passive: false, enabled: true }
+    - { interface: "GigabitEthernet0/3", desc: "R5", ip: "10.100.15.1", mask: "255.255.255.0", area: 1, passive: false, enabled: true }
+    - { interface: "Loopback0", desc: "Router ID", ip: "1.1.1.1", mask: "255.255.255.255", area: 0, passive: true, enabled: true }
+R2:
+  router_id: "10.2.2.2"
+  interfaces:
+    - { interface: "GigabitEthernet0/0", desc: "R1", ip: "10.100.12.2", mask: "255.255.255.0", area: 0, passive: false, enabled: true }
+    - { interface: "GigabitEthernet0/1", desc: "R3", ip: "10.100.23.1", mask: "255.255.255.0", area: 0, passive: false, enabled: true }
+    - { interface: "GigabitEthernet0/2", desc: "R4", ip: "10.100.24.1", mask: "255.255.255.0", area: 0, passive: false, enabled: true }
+    - { interface: "GigabitEthernet0/3", desc: "R6", ip: "10.100.26.1", mask: "255.255.255.0", area: 2, passive: false, enabled: true }
+    - { interface: "Loopback0", desc: "Router ID", ip: "2.2.2.2", mask: "255.255.255.255", area: 0, passive: true, enabled: true }
+"R3":
+  router_id: "10.3.3.3"
+  interfaces:
+    - { interface: "GigabitEthernet0/0", desc: "R4", ip: "10.100.34.1", mask: "255.255.255.0", area: 0, passive: false, enabled: true }
+    - { interface: "GigabitEthernet0/1", desc: "R2", ip: "10.100.23.2", mask: "255.255.255.0", area: 0, passive: false, enabled: true }
+    - { interface: "GigabitEthernet0/2", desc: "R1", ip: "10.100.13.2", mask: "255.255.255.0", area: 0, passive: false, enabled: true }
+    - { interface: "GigabitEthernet0/4", desc: "R5", ip: "10.100.35.1", mask: "255.255.255.0", area: 1, passive: false, enabled: true }
+    - { interface: "Loopback0", desc: "Router ID", ip: "3.3.3.3", mask: "255.255.255.255", area: 0, passive: true, enabled: true }
+CSR1K1703:
+  router_id: "4.4.4.4"
+  interfaces:
+    - { interface: "GigabitEthernet0/0", desc: "R3", ip: "10.100.34.2", mask: "255.255.255.0", area: 0, passive: false, enabled: true }
+    - { interface: "GigabitEthernet0/1", desc: "R1", ip: "10.100.14.2", mask: "255.255.255.0", area: 0, passive: false, enabled: true }
+    - { interface: "GigabitEthernet0/2", desc: "R2", ip: "10.100.24.2", mask: "255.255.255.0", area: 0, passive: false, enabled: true }
+    - { interface: "GigabitEthernet0/4", desc: "R6", ip: "10.100.46.1", mask: "255.255.255.0", area: 2, passive: false, enabled: true }
+    - { interface: "Loopback0", desc: "Router ID", ip: "4.4.4.4", mask: "255.255.255.255", area: 0, passive: true, enabled: true }
+router_05:
+  router_id: "5.5.5.5"
+  interfaces:
+    - { interface: "GigabitEthernet0/3", desc: "R1", ip: "10.100.15.2", mask: "255.255.255.0", area: 1, passive: false, enabled: true }
+    - { interface: "GigabitEthernet0/4", desc: "R3", ip: "10.100.35.2", mask: "255.255.255.0", area: 1, passive: false, enabled: true }
+    - { interface: "Loopback0", desc: "Router ID", ip: "5.5.5.5", mask: "255.255.255.255", area: 1, passive: true, enabled: true }
+router_06:
+  router_id: "6.6.6.6"
+  interfaces:
+    - { interface: "GigabitEthernet0/3", desc: "R2", ip: "10.100.26.2", mask: "255.255.255.0", area: 2, passive: false, enabled: true }
+    - { interface: "GigabitEthernet0/4", desc: "R4", ip: "10.100.46.2", mask: "255.255.255.0", area: 2, passive: false, enabled: true }
+    - { interface: "Loopback0", desc: "Router ID", ip: "6.6.6.6", mask: "255.255.255.255", area: 2, passive: true, enabled: true }
+
+# Set variables for the current host
+interfaces: "{{ vars[inventory_hostname].interfaces }}"
+router_id: "{{ vars[inventory_hostname].router_id }}"

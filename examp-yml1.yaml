@@ -1,0 +1,11 @@
+---
+
+#My BGP configuration
+BGP:
+    ASN: 65001 #the local autonomus system number
+    peers: #the list of neighbors we are preparing with
+        - neighbor: "10.0.0.1" #neighbor IP address
+          peer_asn: 65002
+
+        - neighbor: "10.0.0.5" #neighbor IP address
+          peer_asn: 65005

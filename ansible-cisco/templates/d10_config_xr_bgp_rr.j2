@@ -1,0 +1,10 @@
+router bgp {{ rr.bgp_as }}
+ address-family vpnv4 unicast
+
+{% for host in groups['pe_routers'] %}
+ neighbor {{ hostvars[host].rtr.lo.ip }}
+  remote-as {{ rr.bgp_as }}
+  update-source Loopback0
+  address-family vpnv4 unicast
+   route-reflector-client
+{% endfor %}

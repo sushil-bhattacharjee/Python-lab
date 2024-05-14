@@ -1,0 +1,52 @@
+[rr_routers]
+sandboxXR ansible_host=sandbox-iosxr-1.cisco.com 
+
+[pe_routers]
+R1 ansible_host=10.1.10.29 ansible_network_os=ios
+R2 ansible_host=10.1.10.22 ansible_network_os=ios
+R3 ansible_host=10.1.10.53 ansible_network_os=ios
+R4 ansible_host=10.1.10.24 ansible_network_os=ios
+
+
+
+[p_routers]
+CSR1K1703 ansible_host=10.1.10.28 ansible_network_os=ios
+CSR1K17031 ansible_host=10.1.10.77 ansible_network_os=ios
+C8K1 ansible_host=10.1.10.30 ansible_network_os=ios
+
+
+#[rr_routers]
+#sandboxXR ansible_host=sandbox-iosxr-1.cisco.com ansible_network_os=iosxr ansible_user= admin ansible_ssh_pass= C1sco12345 netconf_port= 830
+
+[all_routers:children]
+pe_routers
+p_routers
+
+
+[all_routers:vars]
+#ansible_user= admin
+ansible_ssh_pass= C1sco12345
+ansible_user= admin
+ansible_password= C1sco12345
+ansible_network_os= cisco.ios.ios
+#ansible_network_os= iosxr
+#ansible_network_os= ios
+ansible_connection= network_cli
+#ansible_connection: ansible.netcommon.netconf
+netconf_port= 830
+ansible_become= yes
+ansible_become_method= enable
+napalm_platform= ios
+ansible_python_interpreter=/home/sushil/Py-Dev/.venv/bin/python3
+
+[rr_routers:vars]
+#ansible_connection=ansible.netcommon.network_cli
+ansible_connection=ansible.netcommon.netconf
+ansible_network_os=cisco.iosxr.iosxr
+ansible_user= admin
+ansible_password= C1sco12345
+ansible_ssh_pass= C1sco12345
+#ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q bastion01"'
+netconf_port= 830
+ansible_become= yes
+ansible_become_method= enable

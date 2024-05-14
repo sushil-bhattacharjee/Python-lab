@@ -1,0 +1,51 @@
+---
+
+iosxe:
+  hosts:
+    R1:
+      ansible_host: 10.1.10.29
+      loop_ip: 29
+    R2:
+      ansible_host: 10.1.10.22
+      loop_ip: 22
+    R3:
+      ansible_host: 10.1.10.53
+      loop_ip: 53
+
+
+csr:
+  hosts:
+    CSR1K17031:
+      ansible_host: 10.1.10.77
+      loop_ip: 77
+    CSR1K1703:
+      ansible_host: 10.1.10.28
+      loop_ip: 28
+
+ 
+
+gns3:
+  children:
+    iosxe:
+    csr:
+
+sandbox:
+  hosts:
+    XRv:
+      ansible_host: sandbox-iosxr-1.cisco.com
+
+  
+network: 
+  children:
+    gns3:
+    sandbox:
+  vars:
+    ansible_user: admin
+    ansible_password: C1sco12345
+    ansible_network_os: cisco.ios.ios
+    ansible_connection: network_cli
+    #ansible_connection: ansible.netcommon.netconf
+    netconf_port: 830
+    ansible_become: yes
+    ansible_become_method: enable
+

@@ -1,0 +1,13 @@
+---
+- hosts: rr_routers
+  connection: ansible.netcommon.network_cli
+  tasks:
+    - name: Retrieve IOS-XR version
+      cisco.iosxr.iosxr_command:
+        commands: show run router bgp
+      when: ansible_network_os == 'cisco.iosxr.iosxr'
+      register: output 
+
+    - name: print output 
+      debug:
+        msg: "{{ output }}"

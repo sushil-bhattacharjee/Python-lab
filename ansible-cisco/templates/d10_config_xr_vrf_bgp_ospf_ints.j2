@@ -1,0 +1,39 @@
+{% for vrf in pe.vrf[inventory_hostname] %}
+root
+vrf {{ vrf.name }}
+ address-family ipv4 unicast
+  import route-target {{ pe.vrf.conf[vrf.name].irt }}
+  export route-target {{ pe.vrf.conf[vrf.name].ert }}
+  rd {{ pe.vrf.conf[vrf.name].rd }}
+
+{% for intf in vrf.ints %}
+root
+interface {{ intf.name }}
+ vrf {{ vrf.name }}
+ description {{ intf.description }}
+ ipv4 address {{ intf.ip }} {{ intf.mask }}
+{% endfor %}
+root
+router ospf {{ pe.vrf.conf[vrf.name].ospf_id }}
+ vrf {{ vrf.name }}
+  redistribute bgp {{ pe.bgp_as }}
+  address-family ipv4 unicast
+  area 0
+{% for intf in vrf.ints %}
+  interface {{ intf.name }}
+{% endfor %}
+{% endfor %}
+root
+router bgp {{ pe.bgp_as }}
+ address-family vpnv4 unicast
+ neighbor {{ pe.bgp_rr }}
+ update-source Loopback0
+ address-family vpnv4 unicast
+  next-hop-self
+
+{% for vrf in pe.vrf[inventory_hostname] %}
+ vrf {{ vrf.name }}
+ address-family ipv4 unicast
+  redistribute connected
+  redistribute ospf {{ pe.vrf.conf[vrf.name].ospf_id }}
+{% endfor %}

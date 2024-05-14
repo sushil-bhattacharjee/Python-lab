@@ -1,0 +1,19 @@
+---
+- name: "NETCONF playbook"
+  hosts: pe_routers
+  connection: ansible.netcommon.netconf
+  tasks:
+    - name: "Create netconf subtree filter"
+      set_fact:
+        filter: <native><hostname></hostname></native>
+
+    - name: Send NETCONF Get 
+      ansible.netcommon.netconf_get:
+        source: running
+        filter: "{{ filter }}"
+        display: native 
+      register: output 
+
+    - name: Print 
+      debug:
+        msg: "{{ output.output.data.native.hostname }}"

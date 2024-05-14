@@ -1,0 +1,20 @@
+---
+
+- name: "OSPF"
+  hosts: "R1, R2"
+  gather_facts: no
+  vars_files: 
+    - vars.yml
+  connection: network_cli
+
+  tasks:    
+    - name: OSPF process config
+      cisco.ios.ios_ospfv2:
+        config:
+          processes:
+            - router_id: "{{ router_id }}"
+              process_id: 1
+              passive_interfaces: 
+                interface:
+                  set_interface: True
+                  name: "{{ interfaces | selectattr('passive', 'equalto', true) | map(attribute='interface') | list }}"

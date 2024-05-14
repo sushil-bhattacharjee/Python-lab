@@ -1,0 +1,18 @@
+---
+- name: Testing ansible show commands
+  hosts: pe_routers 
+  
+  
+  tasks:
+  - name: show running config 
+    vars:
+      ansible_connection: network_cli
+    cisco.ios.ios_command:
+      commands:
+        - show ip interface brief 
+
+    register: output 
+
+  - name: Printout the  output 
+    debug:
+      msg: "{{ output }}"

@@ -1,0 +1,25 @@
+interface {{ rtr.lo.name }}
+ description {{ rtr.lo.description }}
+ ipv4 address {{ rtr.lo.ip }} {{ rtr.lo.mask }}
+
+{% for gi in rtr.gis %}
+interface {{ gi.name }}
+ description {{ gi.description }}
+ ipv4 address {{ gi.ip }} {{ gi.mask }}
+ cdp
+{% endfor %}
+
+router ospf {{ all.ospf_id }}
+ router-id {{ rtr.lo.ip }}
+ address-family ipv4
+
+ area 0
+  interface {{ rtr.lo.name }}
+  {% for gi in rtr.gis %}
+   interface {{ gi.name }}
+  {% endfor %}
+
+mpls ldp
+ {% for gi in rtr.gis %}
+  interface {{ gi.name }}
+ {% endfor %}

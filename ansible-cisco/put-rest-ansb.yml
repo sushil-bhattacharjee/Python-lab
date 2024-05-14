@@ -1,0 +1,38 @@
+---
+- name: "RESTCONF NTP CONFIGURE"
+  hosts: pe_routers 
+  connection: local
+
+  tasks:
+    - name: "Configure NTP" 
+      uri:
+        url: "https://{{ ansible_host}}/restconf/data/native/ntp" 
+        method: PUT 
+        user: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+        headers: 
+          Accept: 'application/yang-data+json'
+          Content-Type: 'application/yang-data+json'
+        body_format: json 
+        body: "{{ ntp_configure }}"
+        validate_certs: false
+        status_code:
+          - 200
+          - 204 
+
+
+    - name: "Pull restconf data" 
+      uri: 
+        url: "https://{{ ansible_host}}/restconf/data/native/ntp"
+        method: GET 
+        user: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+        return_content: true 
+        headers:
+          Accept: "application/yang-data+json"
+        validate_certs: false 
+      register: result 
+
+    - name: "Print Result"
+      debug:
+        msg: "{{ result.json }}"

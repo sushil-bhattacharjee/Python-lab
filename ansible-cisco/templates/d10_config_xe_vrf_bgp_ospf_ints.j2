@@ -1,0 +1,37 @@
+{% for vrf in pe.vrf[inventory_hostname] %}
+vrf definition {{ vrf.name }}
+ rd {{ pe.vrf.conf[vrf.name].rd }}
+ address-family ipv4
+  route-target import {{ pe.vrf.conf[vrf.name].irt }}
+  route-target export {{ pe.vrf.conf[vrf.name].ert }}
+exit-address-family
+
+router ospf {{ pe.vrf.conf[vrf.name].ospf_id }} vrf {{ vrf.name }}
+ redistribute bgp {{ pe.bgp_as }} subnets
+
+{% for intf in vrf.ints %}}
+interface {{ intf.name }}
+ vrf forwarding {{ vrf.name }}
+ description {{ intf.description }}
+ ip address {{ intf.ip }} {{ intf.mask }}
+ ip ospf {{ pe.vrf.conf[vrf.name].ospf_id }} area 0
+{% endfor %}
+hostname {{ rtr.name }}
+{% endfor %}
+
+
+router bgp {{ pe.bgp_as }}
+ neighbor {{ pe.bgp_rr }} remote-as {{ pe.bgp_as }}
+ neighbor {{ pe.bgp_rr }} update-source Loopback0 }}
+ address-family vpnv4
+  neighbor {{ pe.bgp_rr }} activate
+  neighbor {{ pe.bgp_rr }} send-community both
+  neighbor {{ pe.bgp_rr }} next-hop-self
+ exit address-family
+
+{% for vrf in pe.vrf[inventory_hostname] %}
+ address-family ipv4 vrf {{ vrf.name }}
+  redistribute connected
+  redistribute ospf {{ pe.vrf.conf[vrf.name].ospf_id }}
+ exit address-family
+{% endfor %}

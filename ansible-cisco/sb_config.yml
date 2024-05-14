@@ -1,0 +1,14 @@
+---
+- name: "Configuration core side funtionality in all routers"
+  hosts: R1
+  gather_facts: no
+  connection: network_cli
+  tasks:
+      - name: "Applying core side template to XE routers"
+        ios_config:
+          lines:
+             - "{{ lookup('template', 'SB_config_xe_ospf_mpls_ints.j2') }}"
+          backup: yes 
+      
+
+       

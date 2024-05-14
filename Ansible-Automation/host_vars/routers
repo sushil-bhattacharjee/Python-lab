@@ -1,0 +1,9 @@
+
+[routers]
+R1 ansible_host=10.1.10.29
+R2 ansible_host=10.1.10.22
+R3 ansible_host=10.1.10.53
+CSR1K1703 ansible_host=10.1.10.28
+router_05 ansible_host=10.10.50.35
+router_06 ansible_host=10.10.50.36
+sandboxXR ansible_host=sandbox-iosxr-1.cisco.com

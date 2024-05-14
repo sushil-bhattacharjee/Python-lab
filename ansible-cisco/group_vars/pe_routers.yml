@@ -1,0 +1,49 @@
+---
+
+ntp_configure:
+  Cisco-IOS-XE-native:ntp:
+    Cisco-IOS-XE-ntp:server:
+      server-list:
+        - ip-address: 10.1.10.101
+
+interface_configure:
+  Cisco-IOS-XE-native:interface:
+    GigabitEthernet:
+    - Cisco-IOS-XE-ethernet:negotiation:
+        auto: true
+      mop:
+        enabled: false
+        sysid: false
+      name: '1'
+    - Cisco-IOS-XE-ethernet:negotiation:
+        auto: true
+      ip:
+        address:
+          primary:
+            address: 10.1.10.29
+            mask: 255.255.255.0
+      mop:
+        enabled: false
+        sysid: false
+      name: '2'
+      vrf:
+        forwarding: mgmt
+    - Cisco-IOS-XE-ethernet:negotiation:
+        auto: true
+      mop:
+        enabled: false
+        sysid: false
+      name: '3'
+    - Cisco-IOS-XE-ethernet:negotiation:
+        auto: true
+      mop:
+        enabled: false
+        sysid: false
+      name: '4'
+    Loopback:
+    - ip:
+        address:
+          primary:
+            address: 1.1.1.1
+            mask: 255.255.255.255
+      name: 0

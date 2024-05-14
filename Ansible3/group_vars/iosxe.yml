@@ -1,0 +1,4 @@
+---
+subnet_id: "7631"
+ntp_server_ip: "10.101"
+loopback_ip: "10.{{ loop_ip }}"

@@ -1,0 +1,10 @@
+<ospf xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-ipv4-ospf-oper">
+ <processs>
+  <process>
+   <default-vrf>
+    <ospf-summary>
+   </default-vrf>
+   <process-name>{{ all.ospf_id }}</process-name>
+  </process>
+ </processs>
+</ospf>

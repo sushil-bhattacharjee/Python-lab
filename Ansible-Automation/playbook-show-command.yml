@@ -1,0 +1,17 @@
+---
+
+- name: "Testing Ansible"
+  hosts: all
+  connection: network_cli
+
+  tasks:
+    - name: "sending show command"
+      cisco.ios.ios_command:
+        commands:
+         - show ip interface brief
+      register: command_output
+
+
+    - name: "Print the output"
+      debug:
+        msg: "{{ command_output }}"

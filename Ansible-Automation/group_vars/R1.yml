@@ -1,0 +1,10 @@
+---
+
+ospf_process_id: "1"
+router_id: "10.1.1.1"
+ntp_server_id: "10.1.10.39"
+#NTP_SERVER: "10.1.10.101"
+ansible_user: "sushil"
+ansible_password: "sushil"
+#ansible_network_os: "cisco.ios.ios"
+#ospf_configuration: "1"

@@ -1,0 +1,62 @@
+---
+- name: 1. Configuration core side funtionality in all routers
+  hosts: all_routers
+  gather_facts: no
+  connection: network_cli
+  tasks:
+     - name: 1.1 Applying common template to XR routers 
+       iosxr_config:
+          lines:
+             - "{{ lookup('template', 'd10_config_xr_common.j2') }}"
+          backup: yes
+       when: rtr.platform == 'xr' 
+
+     - name: 1.2 Applying common template to XE routers 
+       ios_config: 
+          lines: 
+             - "{{ lookup('template', 'd10_config_xe_common.j2') }}"
+          backup: yes 
+       when: rtr.platform == 'xe' 
+
+     - name: 1.3 Applying core side template to XR routers 
+       iosxr_config:
+          lines: 
+             - "{{ lookup('template', 'd10_config_xr_ospf_ints.j2') }}"
+          backup: yes 
+
+     - name: 1.4 Applying core side template to XE routers 
+       ios_config:
+          lines:
+             - "{{ lookup('template', 'd10_config_xe_ospf_ints.j2') }}"
+          backup: yes 
+       when: rtr.platform == 'xe' 
+
+- name: 2. Configuration RR rolte in RR router 
+  hosts: rr_routers 
+  gather_facts: no
+  connection: network_cli 
+  tasks: 
+     - name: 2.1 Applying RR role template to P2 router
+       iosxr_config: 
+          lines:
+             - "{{ lookup('template', 'd10_config_xr_bgp_rr.j2') }}"
+          backup: yes 
+       when: rtr.platform == 'xr'
+- name: 3. Configuration edge side functionality in PE routers 
+  hosts: pe_routers 
+  gather_facts: no 
+  connection: network_cli 
+  tasks: 
+     - name: 3.1 Applying edge side template to XR routers 
+       iosxr_config: 
+          lines:
+             - "{{ lookup('template', 'd10_config_xr_vrf_bgp_ospf_ints.j2') }}"
+          backup: yes
+       when: rtr.platform == 'xr'
+     - name: 3.2 Applying edge side template to XE routers 
+       ios_config:
+          lines:
+             - "{{ lookup('template', 'd10_config_xe_vrf_bgp_ospf_ints.j2') }}"
+          backup: yes 
+       when: rtr.platform == 'xe'
+       

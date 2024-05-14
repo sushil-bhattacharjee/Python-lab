@@ -1,0 +1,10 @@
+valid data type
+    string //donated by ""
+    arrays //[]
+    boolean
+    numbers
+    json objects //{}
+    null
+
+{} //hold objects
+[] //list of objects

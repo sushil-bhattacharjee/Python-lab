@@ -1,0 +1,28 @@
+---
+- name: Create Loopback interface using Netconf 
+  hosts: gns3
+  gather_facts: no
+
+
+  tasks:
+    - name: Create Loopback interface 
+      ansible.netcommon.netconf_config: 
+        content: |
+             <config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+               <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
+                <interface>
+                 <name>Loopback{{lb_name}}</name>
+                 <description>NETCONF loopback interface</description>
+                 <type xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">
+                   ianaift:softwareLoopback
+                 </type>
+                 <enabled>true</enabled>
+                 <ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
+                   <address>
+                     <ip>10.10.10.{{loop_ip}}</ip>
+                     <netmask>255.255.255.255</netmask>
+                   </address>
+                 </ipv4>
+                </interface>
+               </interfaces>
+             </config>

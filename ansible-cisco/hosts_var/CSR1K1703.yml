@@ -1,0 +1,7 @@
+---
+rtr:
+    name: R1
+    platform: xe
+    lo: { name: Loopback7631, ip: 10.76.31.4, mask: 255.255.255.255, description: Configured by Ansible}
+    gis:
+       - {name: GigabitEthernet3, ip: 10.1.10.28, mask: 255.255.255.255.0, description: Link to GSW@Gi0/3 configured by Ansible}

@@ -1,0 +1,13 @@
+---
+
+R1:
+    hostname: "10.0.0.1" #This is the IP address of R1
+    group:  #Below is a list of groups that R1 belongs to
+      - cisco_group
+      - usa
+      - routers
+#Now we move on to the next device
+
+R2:
+    hostname: "10.0.0.2" #This is the IP address of R2
+    group: [juniper, uk, routers]

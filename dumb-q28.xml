@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<employees>
+    <employee>
+        <id>1</id>
+        <firstName>Jane</firstName>
+        <lastName>Doe</lastName>
+    </employee>
+    <employee>
+        <id>2</id>
+        <firstName>Tim</firstName>
+        <lastName>Public</lastName>
+    </employee>
+    <employee>
+        <id>3</id>
+        <firstName>John</firstName>
+        <lastName>Doe</lastName>
+    </employee>
+</employees>
+
+print( //employee[1]/firstName/text())

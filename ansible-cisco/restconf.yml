@@ -1,0 +1,22 @@
+---
+- name: "RESTCONF playbook"
+  hosts: pe_routers 
+  connection: local 
+  tasks:
+    - name: "Pull information via RESTCONF"
+      uri:
+        #interface for native model      
+        url: "https://{{ ansible_host }}/restconf/data/native/interface/Loopback=0/ip/address/primary/address"
+        #interface for open-config model
+        url: "https://{{ ansible_host }}/restconf/data/openconfig-interfaces:interfaces?content=config"    
+        user: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+        method: GET 
+        headers: 
+          Accept: "application/yang-data+json"
+        validate_certs: no 
+      register: output 
+
+    - name: "print the output"
+      debug:
+        msg: "{{ output.json }}"

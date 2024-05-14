@@ -1,0 +1,24 @@
+---
+
+- name: "Testing few show commands"
+  hosts: gns3
+ 
+  
+
+  tasks:
+     
+     - name: "Sending show commands"
+       vars:
+         ansible_connection: network_cli
+       cisco.ios.ios_command:
+         commands: 
+            - show ip interface brief | incl 7631
+            #- show run | sec ip access-list
+            #- sh run | s router ospf
+            - sh run | s ntp server
+       register: show_output   
+
+     - name: "Print the output" 
+       debug:
+         msg: "{{ show_output }}"
+

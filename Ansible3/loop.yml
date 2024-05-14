@@ -1,0 +1,31 @@
+---
+- name: Practicing loop under ios_config 
+  hosts: iosxe 
+
+  tasks:
+  - name: set ntp server uisng loop 
+    cisco.ios.ios_config:
+      lines:
+        - no ntp server 10.10.{{subnet_id}}.{{item}}
+    loop:
+        - 11
+        - 12
+    #backup: yes
+
+  - name: set correct ntp server
+    cisco.ios.ios_config:
+      lines:
+        - ntp server {{ntp_server_ip}}.{{item}}
+    loop:
+        - 101
+        - 5
+
+  - name: check the ntp server ip assignment
+    cisco.ios.ios_command:
+      commands:
+        - sh run | s ntp server 
+    register: ntp_server_output
+
+  - name: "Print the ntp_server_configuration"
+    debug:
+        msg: "{{ ntp_server_output }}"

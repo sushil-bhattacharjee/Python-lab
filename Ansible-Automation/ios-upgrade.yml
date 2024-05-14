@@ -1,0 +1,8 @@
+---
+#Ansible Playbook to upgrade Cisco IOS
+
+- name: Upgrade Cisco IoS
+  hosts: SWITCHES
+
+  vars: 
+    upgrade_ios_version: 

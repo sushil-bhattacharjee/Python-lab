@@ -1,0 +1,57 @@
+---
+pe_routers: 
+    bgp_as: 65000
+    bgp_rr: 10.2.2.2
+
+    vrf:
+        conf:
+            CustomerA:
+                rd: "65000:10"
+                irt: "65000:10"
+                ert: "65000:10"
+                ospf_id: 10
+
+            CustomerB:
+                rd: "65000:20"
+                irt: "65000:20"
+                ert: "65000:20"
+                ospf_id: 20
+
+        R1:
+            - name: CustomerA
+              ints:
+               - {name: GigabitEthernet1, ip: 172.20.1.1, mask: 255.255.255.255.0, description: Link to R2@Gi1 configured by Ansible}
+               
+            - name: CustomerB
+              ints:
+              - {name: GigabitEthernet2, ip: 10.1.10.29, mask: 255.255.255.255.0, description: Link to GSW@Gi0/2 configured by Ansible}
+              - {name: GigabitEthernet3, ip: 172.20.2.1, mask: 255.255.255.255.0, description: Link to R3@Gi3 configured by Ansible}
+
+        R2:
+            - name: CustomerA
+              ints:
+               - {name: GigabitEthernet1, ip: 172.20.1.2, mask: 255.255.255.255.0, description: Link to R1@Gi1 configured by Ansible}
+               
+            - name: CustomerB
+              ints:
+               - {name: GigabitEthernet2, ip: 172.20.3.2, mask: 255.255.255.255.0, description: Link to R2@Gi2 configured by Ansible}
+               - {name: GigabitEthernet3, ip: 10.1.10.22, mask: 255.255.255.255.0, description: Link to GSW@Gi3 configured by Ansible}
+
+
+        R3:
+            - name: CustomerA
+              ints:
+               - {name: GigabitEthernet1, ip: 192.168.4.3, mask: 255.255.255.255.0, description: Link to R4@Gi1 configured by Ansible}
+               
+            - name: CustomerB
+              ints:
+               - {name: GigabitEthernet2, ip: 172.20.3.3, mask: 255.255.255.255.0, description: Link to R2@Gi2 configured by Ansible}
+               - {name: GigabitEthernet4, ip: 10.1.10.53, mask: 255.255.255.255.0, description: Link to GSW@Gi1/3 configured by Ansible}
+              
+
+        CSR1K1703:
+            - name: CustomerA
+              ints:
+               - {name: GigabitEthernet3, ip: 10.1.10.28, mask: 255.255.255.255.0, description: Link to GSW@Gi0/3 configured by Ansible}
+               
+  

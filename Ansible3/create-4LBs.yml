@@ -1,0 +1,33 @@
+---
+- name: Create and address loopback interface
+  hosts: gns3
+  gather_facts: no
+
+  tasks:
+  - name: Create loopback {{lb_name}}
+    cisco.ios.ios_interfaces:
+      config:
+      - name: Loopback{{lb_name}}{{item}}
+        description: Ansible interface {{lb_name}}{{item}}
+        enabled: true
+    loop:
+        - 11
+        - 12
+        - 13
+        - 14
+    register: makeloop 
+
+#  - name: Assign IP to loopback
+#    cisco.ios.ios_l3_interfaces:
+#      config:
+#      - name: Loopback{{subnet_id}}
+#        ipv4:
+#        - address: 10.{{loopback_ip}}.1/32
+#    register: output_loopback
+
+  - name: Print the output 
+    debug: 
+      msg: "{{ makeloop }}"
+
+
+

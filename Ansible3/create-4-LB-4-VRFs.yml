@@ -1,0 +1,23 @@
+---
+- name: Create and address loopback interface
+  hosts: gns3
+  gather_facts: no
+
+  tasks:
+
+    - name: Create VRFs as defined by local_vrfs 
+      cisco.ios.ios_vrf:
+        vrfs: 
+          - red 
+          - blue 
+          - green 
+          - yellow 
+        state: present 
+        purge: true 
+        rd: 
+          - 1:400
+          - 1:410
+          - 1:420 
+          - 1:430
+      register: addvrf 
+

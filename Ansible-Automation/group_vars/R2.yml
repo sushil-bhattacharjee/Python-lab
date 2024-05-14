@@ -1,0 +1,7 @@
+---
+
+ospf_process_id: "2"
+router_id: "10.2.2.2"
+ntp_server_id: "10.1.10.101"
+ansible_user: "sushil"
+ansible_password: "sushil"

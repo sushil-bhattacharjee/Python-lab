@@ -1,0 +1,16 @@
+---
+- name: saving the config end-of the day
+  hosts: gns3
+  #ansible_connection: network_cli
+  
+  tasks:
+    - name: save running config to startup config 
+      cisco.ios.ios_config:
+        lines:
+           #- do wr
+           #- no ntp server 10.1.10.101
+           #- netconf-yang 
+           #- restconf
+            - no interface Loopback7631
+            
+        save_when: always

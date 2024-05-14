@@ -1,0 +1,23 @@
+---
+- name: Sample IoS playbook for Ansible core 
+  hosts: iosxe
+
+  tasks:
+    - name: set ACL via CLI
+      cisco.ios.ios_config:
+        lines: 
+          - 10 permit ip host 1.1.1.1 any log
+          - 20 permit ip host 2.2.2.2 any log
+          - 30 permit ip host 3.3.3.3 any log
+        parents: ['ip access-list extended ansible_acl']
+        before: ['no ip access-list extended ansible_acl']
+      register: show_acl
+
+    - name: "Print the acl"
+      debug:
+         msg: "{{ show_acl }}"
+    - name: Configure the login banner
+      cisco.ios.ios_banner:
+        banner: login
+        text: this is my login banner created by Ansible
+        state: present

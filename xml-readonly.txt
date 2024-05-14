@@ -1,0 +1,16 @@
+<data>
+	<!--This is root-->
+	<interface>
+		<!--This is parent-->
+		<name>GigabitEthernet1</name>
+		<!--This is child-->
+		<ipv4>192.168.10.1</ipv4>
+		<description>MGMT intf</description>
+		<!--It is extensible, and json can't-->
+		<ipv6>fe80::1</ipv6>
+	</interface>
+</data>
+
+
+<!--there can't be another file which has the same root-->
+<!--To avoid conflictinn name, it uses xlmns=https://xxx.xxxx.xxx...>

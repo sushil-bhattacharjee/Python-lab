@@ -1,0 +1,17 @@
+---
+
+- name: "Configure ospf using Ansible"
+  hosts: "R1, R2"
+  gather_facts: no
+  vars_files:
+    - vars.yml
+
+  connection: network_cli
+
+  tasks:
+    - name: "configure ospf routing"
+      cisco.ios.ios_ospfv2:
+       config:
+        ospf_process_id:
+          - router_id: "{{ router_id }}"
+            pocess_id: 1
